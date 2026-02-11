@@ -1,29 +1,13 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
-public class DemoQaTests {
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.holdBrowserOpen = true;
-        Configuration.timeout = 5000;
-    }
-
-    @AfterEach
-    void afterEach() {
-        Selenide.closeWindow();
-    }
+public class DemoQaTests extends BaseTest {
 
     @Test
     void CheckHeaders() {
