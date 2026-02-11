@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.gmail.mariia'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(
+            "com.codeborne:selenide:7.14.0",
+            "org.junit.jupiter:junit-jupiter:5.14.1",
+            'org.slf4j:slf4j-simple:2.0.17'
+    )
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+}
