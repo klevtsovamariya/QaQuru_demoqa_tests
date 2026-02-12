@@ -1,11 +1,13 @@
 package tests;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class DemoQaTests extends BaseTest {
 
@@ -20,9 +22,9 @@ public class DemoQaTests extends BaseTest {
         $("[id = genterWrapper]").shouldHave(text("Gender"));
         $("[id = userNumber-label]").shouldHave(text("Mobile(10 Digits)"));
         $("[id = dateOfBirth-label]").shouldHave(text("Date of Birth"));
-        $("[id = subjects-label]").shouldHave(text("Subjects"));
-        // $("[id = subjects-label]").shouldHave(text("Hobbies")); неправильные id
-        // $("[id = subjects-label]").shouldHave(text("Picture"));
+        $("[id=subjectsWrapper] [id = subjects-label]").shouldHave(text("Subjects"));
+        $("[id=hobbiesWrapper] [id = subjects-label]").shouldHave(text("Hobbies"));
+        $$(".form-label#subjects-label").get(2).shouldHave(Condition.exactText("Picture"));
         $("[id = currentAddress-label]").shouldHave(text("Current Address"));
         $("[id = stateCity-label]").shouldHave(text("State and City"));
     }
