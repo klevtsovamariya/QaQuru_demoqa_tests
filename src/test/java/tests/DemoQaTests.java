@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$$;
 public class DemoQaTests extends BaseTest {
 
     @Test
-    void CheckHeaders() {
+    void checkHeaders() {
         Selenide.open("/automation-practice-form");
         $("[id = userForm]").shouldBe(visible);
         $("h1.text-center").shouldHave(text("Practice Form"));
@@ -30,7 +30,7 @@ public class DemoQaTests extends BaseTest {
     }
 
     @Test
-    void FillAllField() {
+    void fillAllField() {
         Selenide.open("/automation-practice-form");
         $("[id = firstName]").setValue("Джек");
         $("[id = lastName]").setValue("Воробей");
@@ -51,13 +51,25 @@ public class DemoQaTests extends BaseTest {
         $("[id = city]").scrollTo().click();
         $(byText("Delhi")).click();
         $("[id = submit].btn").click();
+
+        // Проверки
         $("[id = example-modal-sizes-title-lg]")
                 .shouldBe(visible)
                 .shouldHave(text("Thanks for submitting the form"));
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Джек Воробей"));
+        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("capitanJack@gmail.com"));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Female"));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("89005623212"));
+        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("15 May 2000"));
+        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("English"));
+        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Sports"));
+        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("1.png"));
+        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("123"));
+        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Delhi"));
     }
 
     @Test
-    void OnlyRequiredFields() {
+    void onlyRequiredFields() {
         Selenide.open("/automation-practice-form");
         $("[id = firstName]").setValue("Джек");
         $("[id = lastName]").setValue("Воробей");
@@ -77,7 +89,7 @@ public class DemoQaTests extends BaseTest {
     }
 
     @Test
-    void WrongPhoneNumber() {
+    void wrongPhoneNumber() {
         Selenide.open("/automation-practice-form");
         $("[id = firstName]").setValue("Джек");
         $("[id = lastName]").setValue("Воробей");
@@ -95,7 +107,7 @@ public class DemoQaTests extends BaseTest {
     }
 
     @Test
-    void SkipOneRequiredOnes() {
+    void skipOneRequiredOnes() {
         Selenide.open("/automation-practice-form");
         $("[id = firstName]").setValue("Джек");
         $("[id = lastName]").setValue("Воробей");
@@ -115,7 +127,7 @@ public class DemoQaTests extends BaseTest {
     }
 
     @Test
-    void CheckingRequiredFieldsHighlighting() {
+    void checkingRequiredFieldsHighlighting() {
         Selenide.open("/automation-practice-form");
         $("[id = submit].btn").scrollTo().click();
         $("[id=firstName]").scrollTo().shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
