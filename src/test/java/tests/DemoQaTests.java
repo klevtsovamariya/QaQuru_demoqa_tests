@@ -8,12 +8,15 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static testData.TestData.*;
 
 public class DemoQaTests extends BaseTest {
 
     @Test
     void checkHeaders() {
-        Selenide.open("/automation-practice-form");
+        Selenide.open("");
+        $$(".card-body").findBy(text("Forms")).click();
+        $$(".router-link").findBy(text("Practice Form")).click();
         $("[id = userForm]").shouldBe(visible);
         $("h1.text-center").shouldHave(text("Practice Form"));
         $(".practice-form-wrapper h5").shouldHave(text("Student Registration Form"));
@@ -31,116 +34,153 @@ public class DemoQaTests extends BaseTest {
 
     @Test
     void fillAllField() {
-        Selenide.open("/automation-practice-form");
-        $("[id = firstName]").setValue("Джек");
-        $("[id = lastName]").setValue("Воробей");
-        $("[id = userEmail]").setValue("capitanJack@gmail.com");
-        $(byText("Female")).click();
-        $("[id = userNumber]").setValue("89005623212");
+        Selenide.open("");
+        $$(".card-body").findBy(text("Forms")).click();
+        $$(".router-link").findBy(text("Practice Form")).click();
+        $("[id = firstName]").setValue(firstName);
+        $("[id = lastName]").setValue(lastName);
+        $("[id = userEmail]").setValue(userEmail);
+        $(byText(sex)).click();
+        $("[id = userNumber]").setValue(userNumber);
         $("[id = dateOfBirthInput]").click();
-        $(".react-datepicker__year-select").selectOptionByValue("2000");
-        $(".react-datepicker__month-select").selectOptionByValue("5");
+        $(".react-datepicker__year-select").selectOptionByValue(year);
+        $(".react-datepicker__month-select").selectOptionByValue(month);
         $(".react-datepicker__day.react-datepicker__day--015").click();
         $("[id = subjectsInput]").setValue("En");
-        $(byText("English")).click();
-        $(byText("Sports")).click();
+        $(byText(subject)).click();
+        $(byText(hobbies)).click();
         $("[id = uploadPicture]").uploadFromClasspath("photo/1.png");
-        $("[id = currentAddress]").setValue("123");
+        $("[id = currentAddress]").setValue(currentAddress);
         $("[id = state]").scrollTo().click();
-        $(byText("NCR")).click();
+        $(byText(state)).click();
         $("[id = city]").scrollTo().click();
-        $(byText("Delhi")).click();
+        $(byText(city)).click();
         $("[id = submit].btn").click();
 
         // Проверки
-        $("[id = example-modal-sizes-title-lg]")
-                .shouldBe(visible)
-                .shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Джек Воробей"));
-        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("capitanJack@gmail.com"));
-        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Female"));
-        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("89005623212"));
-        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("15 May 2000"));
-        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("English"));
-        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Sports"));
+        $("[id = example-modal-sizes-title-lg]").shouldBe(visible).shouldHave(text(title));
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
+        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text(userEmail));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text(sex));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text(userNumber));
+        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text(dateOfBirth));
+        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text(subject));
+        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text(hobbies));
         $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("1.png"));
-        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("123"));
-        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Delhi"));
+        $(".table-responsive").$(byText("Address")).parent().shouldHave(text(currentAddress));
+        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text(state + " " + city));
     }
 
     @Test
     void onlyRequiredFields() {
-        Selenide.open("/automation-practice-form");
-        $("[id = firstName]").setValue("Джек");
-        $("[id = lastName]").setValue("Воробей");
-        $("[id = userEmail]").setValue("capitanJack@gmail.com");
-        $(byText("Female")).click();
-        $("[id = userNumber]").setValue("89005623212");
+        Selenide.open("");
+        $$(".card-body").findBy(text("Forms")).click();
+        $$(".router-link").findBy(text("Practice Form")).click();
+        $("[id = firstName]").setValue(firstName);
+        $("[id = lastName]").setValue(lastName);
+        $("[id = userEmail]").setValue(userEmail);
+        $(byText(sex)).click();
+        $("[id = userNumber]").setValue(userNumber);
         $("[id = dateOfBirthInput]").click();
-        $(".react-datepicker__year-select").selectOptionByValue("2000");
-        $(".react-datepicker__month-select").selectOptionByValue("5");
+        $(".react-datepicker__year-select").selectOptionByValue(year);
+        $(".react-datepicker__month-select").selectOptionByValue(month);
         $(".react-datepicker__day.react-datepicker__day--015").click();
-        $(byText("Sports")).click();
-        $("[id = currentAddress]").setValue("123");
+        $(byText(hobbies)).click();
+        $("[id = currentAddress]").setValue(currentAddress);
         $("[id = submit].btn").scrollTo().click();
-        $("[id = example-modal-sizes-title-lg]")
-                .shouldBe(visible)
-                .shouldHave(text("Thanks for submitting the form"));
+        // Проверки
+        $("[id = example-modal-sizes-title-lg]").shouldBe(visible).shouldHave(text(title));
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
+        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text(userEmail));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text(sex));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text(userNumber));
+        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text(dateOfBirth));
+        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text(hobbies));
+        $(".table-responsive").$(byText("Address")).parent().shouldHave(text(currentAddress));
     }
 
     @Test
     void wrongPhoneNumber() {
-        Selenide.open("/automation-practice-form");
-        $("[id = firstName]").setValue("Джек");
-        $("[id = lastName]").setValue("Воробей");
-        $("[id = userEmail]").setValue("capitanJack@gmail.com");
-        $(byText("Female")).click();
+        Selenide.open("");
+        $$(".card-body").findBy(text("Forms")).click();
+        $$(".router-link").findBy(text("Practice Form")).click();
+        $("[id = firstName]").setValue(firstName);
+        $("[id = lastName]").setValue(lastName);
+        $("[id = userEmail]").setValue(userEmail);
+        $(byText(sex)).click();
         $("[id = userNumber]").setValue("123");
         $("[id = dateOfBirthInput]").click();
-        $(".react-datepicker__year-select").selectOptionByValue("2000");
-        $(".react-datepicker__month-select").selectOptionByValue("5");
+        $(".react-datepicker__year-select").selectOptionByValue(year);
+        $(".react-datepicker__month-select").selectOptionByValue(month);
         $(".react-datepicker__day.react-datepicker__day--015").click();
-        $(byText("Sports")).click();
-        $("[id = currentAddress]").setValue("123");
+        $(byText(hobbies)).click();
+        $("[id = currentAddress]").setValue(currentAddress);
         $("[id = submit].btn").scrollTo().click();
-        $("[id=userNumber]").scrollTo().shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+        //Проверки
+        $("[id=userNumber]").scrollTo().shouldHave(cssValue("border-color", redBorder));
+        $("[id=firstName]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
+        $("[id=lastName]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
+        $("[id=userEmail]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
+        $("[id=dateOfBirthInput]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
+        $("label[for=gender-radio-1]").shouldHave(cssValue("color", greenColor));
+        $("label[for=gender-radio-2]").shouldHave(cssValue("color", greenColor));
+        $("label[for=gender-radio-3]").shouldHave(cssValue("color", greenColor));
+        $("label[for=hobbies-checkbox-1]").shouldHave(cssValue("color", greenColor));
+        $("label[for=hobbies-checkbox-2]").shouldHave(cssValue("color", greenColor));
+        $("label[for=hobbies-checkbox-3]").shouldHave(cssValue("color", greenColor));
+        $("[id=currentAddress]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
     }
 
     @Test
     void skipOneRequiredOnes() {
-        Selenide.open("/automation-practice-form");
-        $("[id = firstName]").setValue("Джек");
-        $("[id = lastName]").setValue("Воробей");
-        $("[id = userEmail]").setValue("capitanJack@gmail.com");
-        $(byText("Female")).click();
-        $("[id = userNumber]").setValue("89005623212");
+        Selenide.open("");
+        $$(".card-body").findBy(text("Forms")).click();
+        $$(".router-link").findBy(text("Practice Form")).click();
+        $("[id = firstName]").setValue(firstName);
+        $("[id = lastName]").setValue(lastName);
+        $("[id = userEmail]").setValue(userEmail);
+        $(byText(sex)).click();
+        $("[id = userNumber]").setValue(userNumber);
         $("[id = dateOfBirthInput]").click();
-        $(".react-datepicker__year-select").selectOptionByValue("2000");
-        $(".react-datepicker__month-select").selectOptionByValue("5");
+        $(".react-datepicker__year-select").selectOptionByValue(year);
+        $(".react-datepicker__month-select").selectOptionByValue(month);
         $(".react-datepicker__day.react-datepicker__day--015").click();
-        $(byText("Sports")).click();
+        $(byText(hobbies)).click();
         // $("[id = currentAddress]").setValue("123"); не заполняем обязательное поле
         $("[id = submit].btn").scrollTo().click();
         $("[id = example-modal-sizes-title-lg]").shouldNotBe(visible);
-        $("[id=currentAddress]").scrollTo().shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
-
+        //Проверки
+        $("[id=currentAddress]").scrollTo().shouldHave(cssValue("border-color", redBorder));
+        $("[id=firstName]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
+        $("[id=lastName]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
+        $("[id=userEmail]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
+        $("[id=dateOfBirthInput]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
+        $("label[for=gender-radio-1]").shouldHave(cssValue("color", greenColor));
+        $("label[for=gender-radio-2]").shouldHave(cssValue("color", greenColor));
+        $("label[for=gender-radio-3]").shouldHave(cssValue("color", greenColor));
+        $("label[for=hobbies-checkbox-1]").shouldHave(cssValue("color", greenColor));
+        $("label[for=hobbies-checkbox-2]").shouldHave(cssValue("color", greenColor));
+        $("label[for=hobbies-checkbox-3]").shouldHave(cssValue("color", greenColor));
+        $("[id=userNumber]").scrollTo().shouldHave(cssValue("border-color", greenBorder));
     }
 
     @Test
     void checkingRequiredFieldsHighlighting() {
-        Selenide.open("/automation-practice-form");
+        Selenide.open("");
+        $$(".card-body").findBy(text("Forms")).click();
+        $$(".router-link").findBy(text("Practice Form")).click();
         $("[id = submit].btn").scrollTo().click();
-        $("[id=firstName]").scrollTo().shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
-        $("[id=lastName]").scrollTo().shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
-        $("[id=userEmail]").scrollTo().shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
-        $("label[for=gender-radio-1]").shouldHave(cssValue("color", "rgba(220, 53, 69, 1)"));
-        $("label[for=gender-radio-2]").shouldHave(cssValue("color", "rgba(220, 53, 69, 1)"));
-        $("label[for=gender-radio-3]").shouldHave(cssValue("color", "rgba(220, 53, 69, 1)"));
-        $("[id=userNumber]").scrollTo().shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
-        $("[id=dateOfBirthInput]").scrollTo().shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
-        $("label[for=hobbies-checkbox-1]").shouldHave(cssValue("color", "rgba(220, 53, 69, 1)"));
-        $("label[for=hobbies-checkbox-2]").shouldHave(cssValue("color", "rgba(220, 53, 69, 1)"));
-        $("label[for=hobbies-checkbox-3]").shouldHave(cssValue("color", "rgba(220, 53, 69, 1)"));
-        $("[id=currentAddress]").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+        $("[id=firstName]").scrollTo().shouldHave(cssValue("border-color", redBorder));
+        $("[id=lastName]").scrollTo().shouldHave(cssValue("border-color", redBorder));
+        $("[id=userEmail]").scrollTo().shouldHave(cssValue("border-color", redBorder));
+        $("label[for=gender-radio-1]").shouldHave(cssValue("color", redColor));
+        $("label[for=gender-radio-2]").shouldHave(cssValue("color", redColor));
+        $("label[for=gender-radio-3]").shouldHave(cssValue("color", redColor));
+        $("[id=userNumber]").scrollTo().shouldHave(cssValue("border-color", redBorder));
+        $("[id=dateOfBirthInput]").scrollTo().shouldHave(cssValue("border-color", redBorder));
+        $("label[for=hobbies-checkbox-1]").shouldHave(cssValue("color", redColor));
+        $("label[for=hobbies-checkbox-2]").shouldHave(cssValue("color", redColor));
+        $("label[for=hobbies-checkbox-3]").shouldHave(cssValue("color", redColor));
+        $("[id=currentAddress]").shouldHave(cssValue("border-color", redBorder));
     }
 }
