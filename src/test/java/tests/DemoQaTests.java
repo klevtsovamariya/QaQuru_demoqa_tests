@@ -56,7 +56,6 @@ public class DemoQaTests extends BaseTest {
         $("[id = city]").scrollTo().click();
         $(byText(city)).click();
         $("[id = submit].btn").click();
-
         // Проверки
         $("[id = example-modal-sizes-title-lg]").shouldBe(visible).shouldHave(text(title));
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
