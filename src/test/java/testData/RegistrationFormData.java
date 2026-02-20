@@ -1,6 +1,6 @@
 package testData;
 
-public class TestData {
+public class RegistrationFormData {
     public static String firstName = "Джек";
     public static String lastName = "Воробей";
     public static String userEmail = "capitanJack@gmail.com";
@@ -14,6 +14,7 @@ public class TestData {
     public static String state = "NCR";
     public static String city = "Delhi";
     public static String dateOfBirth = "15 June,2000";
+    public static String picture = "1.png";
     public static String title = "Thanks for submitting the form";
     public static String redBorder = "rgb(220, 53, 69)";
     public static String redColor = "rgba(220, 53, 69, 1)";

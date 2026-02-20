@@ -8,9 +8,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static testData.TestData.*;
+import static testData.RegistrationFormData.*;
 
-public class DemoQaTests extends BaseTest {
+public class RegistrationFormTests extends BaseTest {
 
     @Test
     void checkHeaders() {
@@ -49,7 +49,7 @@ public class DemoQaTests extends BaseTest {
         $("[id = subjectsInput]").setValue("En");
         $(byText(subject)).click();
         $(byText(hobbies)).click();
-        $("[id = uploadPicture]").uploadFromClasspath("photo/1.png");
+        $("[id = uploadPicture]").uploadFromClasspath("photo/" + picture);
         $("[id = currentAddress]").setValue(currentAddress);
         $("[id = state]").scrollTo().click();
         $(byText(state)).click();
@@ -65,7 +65,7 @@ public class DemoQaTests extends BaseTest {
         $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text(dateOfBirth));
         $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text(subject));
         $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text(hobbies));
-        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("1.png"));
+        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text(picture));
         $(".table-responsive").$(byText("Address")).parent().shouldHave(text(currentAddress));
         $(".table-responsive").$(byText("State and City")).parent().shouldHave(text(state + " " + city));
     }
