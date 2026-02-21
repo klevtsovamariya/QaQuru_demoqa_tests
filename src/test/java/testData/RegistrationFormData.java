@@ -22,7 +22,5 @@ public class RegistrationFormData {
     public static String picture = "1.png";
     public static String title = "Thanks for submitting the form";
     public static String redBorder = "rgb(220, 53, 69)";
-    public static String redColor = "rgba(220, 53, 69, 1)";
     public static String greenBorder = "rgb(25, 135, 84)";
-    public static String greenColor = "rgba(25, 135, 84, 1)";
 }
