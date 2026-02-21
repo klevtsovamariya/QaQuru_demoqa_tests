@@ -9,7 +9,7 @@ public class FormsPage {
     private final SelenideElement practiceFormButton = $$(".router-link").find(exactText("Practice Form"));
 
     public PracticeFormPage openPracticeFormPage() {
-        practiceFormButton.click();
+        practiceFormButton.scrollTo().click();
 
         return new PracticeFormPage();
     }

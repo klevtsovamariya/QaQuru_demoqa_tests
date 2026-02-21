@@ -13,7 +13,7 @@ public class MainPage {
     private final SelenideElement elementsButton = $$(".card-body").find(exactText("Elements"));
 
     public FormsPage openFormsPage() {
-        formsPageButton.click();
+        formsPageButton.scrollTo().click();
 
         return new FormsPage();
     }
