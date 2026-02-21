@@ -2,6 +2,8 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import pages.components.HeaderComponent;
+import pages.components.ResultsTableComponent;
+import pages.components.BacklightComponent;
 import pages.elementsPages.PracticeFormPage;
 
 import static com.codeborne.selenide.Condition.text;
@@ -11,6 +13,8 @@ public class RegistrationFormTests extends BaseTest {
 
     private final PracticeFormPage form = new PracticeFormPage();
     private final HeaderComponent header = new HeaderComponent();
+    private final ResultsTableComponent resultsTable = new ResultsTableComponent();
+    private final BacklightComponent backlight = new BacklightComponent();
 
     @Test
     void checkHeaders() {
@@ -44,9 +48,10 @@ public class RegistrationFormTests extends BaseTest {
                 .uploadPicture(picture)
                 .setCurrentAddress(currentAddress)
                 .setStateAndCity(state, city)
-                .clickSubmit()
-                .checkModal(title)
-                .checkTableResponsiveText("Student Name", firstName + " " + lastName)
+                .clickSubmit();
+        resultsTable.checkModalVisible();
+        header.verifyModalTitle(title);
+        resultsTable.checkTableResponsiveText("Student Name", firstName + " " + lastName)
                 .checkTableResponsiveText("Student Email", userEmail)
                 .checkTableResponsiveText("Gender", sex2)
                 .checkTableResponsiveText("Mobile", userNumber)
@@ -69,9 +74,10 @@ public class RegistrationFormTests extends BaseTest {
                 .setDateOfBirth(day, month, year)
                 .setHobbies(hobbies2)
                 .setCurrentAddress(currentAddress)
-                .clickSubmit()
-                .checkModal(title)
-                .checkTableResponsiveText("Student Name", firstName + " " + lastName)
+                .clickSubmit();
+        resultsTable.checkModalVisible();
+        header.verifyModalTitle(title);
+        resultsTable.checkTableResponsiveText("Student Name", firstName + " " + lastName)
                 .checkTableResponsiveText("Student Email", userEmail)
                 .checkTableResponsiveText("Gender", sex1)
                 .checkTableResponsiveText("Mobile", userNumber)
@@ -94,17 +100,17 @@ public class RegistrationFormTests extends BaseTest {
                 .setDateOfBirth(day, month, year)
                 .setHobbies(hobbies3)
                 .setCurrentAddress(currentAddress)
-                .clickSubmit()
-                .checkBacklight(form.getUserNumberInput(), "border-color", redBorder)
+                .clickSubmit();
+        backlight.checkBacklight(form.getUserNumberInput(), "border-color", redBorder)
                 .checkBacklight(form.getFirstNameInput(), "border-color", greenBorder)
                 .checkBacklight(form.getLastNameInput(), "border-color", greenBorder)
                 .checkBacklight(form.getUserEmailInput(), "border-color", greenBorder)
                 .checkBacklight(form.getDateOfBirthInput(), "border-color", greenBorder)
-                .checkBacklight(form.getCurrentAddressTextArea(), "border-color", greenBorder)
-                .getCheckLabelByIndex(1).shouldHave(text(sex2));
-        form.checkBacklight(form.getCheckLabelByIndex(1), "border-color", greenBorder)
-                .getCheckLabelByIndex(5).shouldHave(text(hobbies3));
-        form.checkBacklight(form.getCheckLabelByIndex(5), "border-color", greenBorder);
+                .checkBacklight(form.getCurrentAddressTextArea(), "border-color", greenBorder);
+        form.getCheckLabelByIndex(1).shouldHave(text(sex2));
+        backlight.checkBacklight(form.getCheckLabelByIndex(1), "border-color", greenBorder);
+        form.getCheckLabelByIndex(5).shouldHave(text(hobbies3));
+        backlight.checkBacklight(form.getCheckLabelByIndex(5), "border-color", greenBorder);
     }
 
     @Test
@@ -117,41 +123,41 @@ public class RegistrationFormTests extends BaseTest {
                 .setDateOfBirth(day, month, year)
                 .setHobbies(hobbies1)
                 .setCurrentAddress(currentAddress)
-                .clickSubmit()
-                .checkModalNotVisible()
-                .checkBacklight(form.getFirstNameInput(), "border-color", redBorder)
+                .clickSubmit();
+        resultsTable.checkModalNotVisible();
+        backlight.checkBacklight(form.getFirstNameInput(), "border-color", redBorder)
                 .checkBacklight(form.getUserNumberInput(), "border-color", greenBorder)
                 .checkBacklight(form.getLastNameInput(), "border-color", greenBorder)
                 .checkBacklight(form.getUserEmailInput(), "border-color", greenBorder)
                 .checkBacklight(form.getDateOfBirthInput(), "border-color", greenBorder)
-                .checkBacklight(form.getCurrentAddressTextArea(), "border-color", greenBorder)
-                .getCheckLabelByIndex(1).shouldHave(text(sex2));
-        form.checkBacklight(form.getCheckLabelByIndex(1), "border-color", greenBorder)
-                .getCheckLabelByIndex(3).shouldHave(text(hobbies1));
-        form.checkBacklight(form.getCheckLabelByIndex(0), "border-color", greenBorder);
+                .checkBacklight(form.getCurrentAddressTextArea(), "border-color", greenBorder);
+        form.getCheckLabelByIndex(1).shouldHave(text(sex2));
+        backlight.checkBacklight(form.getCheckLabelByIndex(1), "border-color", greenBorder);
+        form.getCheckLabelByIndex(3).shouldHave(text(hobbies1));
+        backlight.checkBacklight(form.getCheckLabelByIndex(0), "border-color", greenBorder);
     }
 
     @Test
     void checkingRequiredFieldsHighlighting() {
         form.openPage()
-                .clickSubmit()
-                .checkBacklight(form.getUserNumberInput(), "border-color", redBorder)
+                .clickSubmit();
+        backlight.checkBacklight(form.getUserNumberInput(), "border-color", redBorder)
                 .checkBacklight(form.getFirstNameInput(), "border-color", redBorder)
                 .checkBacklight(form.getLastNameInput(), "border-color", redBorder)
                 .checkBacklight(form.getUserEmailInput(), "border-color", redBorder)
                 .checkBacklight(form.getDateOfBirthInput(), "border-color", redBorder)
-                .checkBacklight(form.getCurrentAddressTextArea(), "border-color", redBorder)
-                .getCheckLabelByIndex(0).shouldHave(text(sex1));
-        form.checkBacklight(form.getCheckLabelByIndex(0), "border-color", redBorder)
-                .getCheckLabelByIndex(1).shouldHave(text(sex2));
-        form.checkBacklight(form.getCheckLabelByIndex(1), "border-color", redBorder)
-                .getCheckLabelByIndex(2).shouldHave(text(sex3));
-        form.checkBacklight(form.getCheckLabelByIndex(2), "border-color", redBorder)
-                .getCheckLabelByIndex(3).shouldHave(text(hobbies1));
-        form.checkBacklight(form.getCheckLabelByIndex(3), "border-color", redBorder)
-                .getCheckLabelByIndex(4).shouldHave(text(hobbies2));
-        form.checkBacklight(form.getCheckLabelByIndex(4), "border-color", redBorder)
-                .getCheckLabelByIndex(5).shouldHave(text(hobbies3));
-        form.checkBacklight(form.getCheckLabelByIndex(5), "border-color", redBorder);
+                .checkBacklight(form.getCurrentAddressTextArea(), "border-color", redBorder);
+        form.getCheckLabelByIndex(0).shouldHave(text(sex1));
+        backlight.checkBacklight(form.getCheckLabelByIndex(0), "border-color", redBorder);
+        form.getCheckLabelByIndex(1).shouldHave(text(sex2));
+        backlight.checkBacklight(form.getCheckLabelByIndex(1), "border-color", redBorder);
+        form.getCheckLabelByIndex(2).shouldHave(text(sex3));
+        backlight.checkBacklight(form.getCheckLabelByIndex(2), "border-color", redBorder);
+        form.getCheckLabelByIndex(3).shouldHave(text(hobbies1));
+        backlight.checkBacklight(form.getCheckLabelByIndex(3), "border-color", redBorder);
+        form.getCheckLabelByIndex(4).shouldHave(text(hobbies2));
+        backlight.checkBacklight(form.getCheckLabelByIndex(4), "border-color", redBorder);
+        form.getCheckLabelByIndex(5).shouldHave(text(hobbies3));
+        backlight.checkBacklight(form.getCheckLabelByIndex(5), "border-color", redBorder);
     }
 }

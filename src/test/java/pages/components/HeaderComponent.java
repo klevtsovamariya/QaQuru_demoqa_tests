@@ -9,18 +9,19 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class HeaderComponent {
 
-    public static final SelenideElement userNameLabel = $("#userName-label");
-    public static final SelenideElement userEmailLabel = $("#userEmail-label");
-    public static final SelenideElement genderLabel = $("#genterWrapper");
-    public static final SelenideElement userNumberLabel = $("#userNumber-label");
-    public static final SelenideElement dateOfBirthLabel = $("#dateOfBirth-label");
-    public static final SelenideElement subjectsLabel = $("#subjectsWrapper [id=subjects-label]");
-    public static final SelenideElement hobbiesLabel = $("#hobbiesWrapper [id=subjects-label]");
-    public static final SelenideElement pictureLabel = $$(".form-label#subjects-label").get(2);
-    public static final SelenideElement currentAddressLabel = $("#currentAddress-label");
-    public static final SelenideElement stateAndCityLabel = $("#stateCity-label");
-    public static final SelenideElement mainTitle = $(".practice-form-wrapper h1");
-    public static final SelenideElement subtitle = $(".practice-form-wrapper h5");
+    public final SelenideElement userNameLabel = $("#userName-label");
+    public final SelenideElement userEmailLabel = $("#userEmail-label");
+    public final SelenideElement genderLabel = $("#genterWrapper");
+    public final SelenideElement userNumberLabel = $("#userNumber-label");
+    public final SelenideElement dateOfBirthLabel = $("#dateOfBirth-label");
+    public final SelenideElement subjectsLabel = $("#subjectsWrapper [id=subjects-label]");
+    public final SelenideElement hobbiesLabel = $("#hobbiesWrapper [id=subjects-label]");
+    public final SelenideElement pictureLabel = $$(".form-label#subjects-label").get(2);
+    public final SelenideElement currentAddressLabel = $("#currentAddress-label");
+    public final SelenideElement stateAndCityLabel = $("#stateCity-label");
+    public final SelenideElement mainTitle = $(".practice-form-wrapper h1");
+    public final SelenideElement subtitle = $(".practice-form-wrapper h5");
+    public final SelenideElement modalTitle = $(".modal-title h4");
 
     public HeaderComponent verifyMainTitle(String text) {
         mainTitle.shouldHave(text(text));
@@ -93,4 +94,11 @@ public class HeaderComponent {
 
         return this;
     }
+
+    public HeaderComponent verifyModalTitle(String text) {
+        modalTitle.shouldHave(text(text));
+
+        return this;
+    }
+
 }

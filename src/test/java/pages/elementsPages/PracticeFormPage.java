@@ -12,6 +12,8 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class PracticeFormPage {
 
+    private final CalendarComponent calendar = new CalendarComponent();
+
     private final ElementsCollection checkLabel = $$(".form-check-label");
 
     private final SelenideElement firstNameInput = $("#firstName");
@@ -27,8 +29,6 @@ public class PracticeFormPage {
     private final SelenideElement city = $("#city");
     private final SelenideElement stateCityContainer = $("#stateCity-wrapper");
     private final SelenideElement submitButton = $("#submit");
-    private final SelenideElement modalWindow = $("#example-modal-sizes-title-lg");
-    private final SelenideElement tableResponsive = $(".table-responsive");
     private final SelenideElement hobbiesWrapper = $("#hobbiesWrapper");
     private final SelenideElement userForm = $("#userForm");
 
@@ -111,7 +111,7 @@ public class PracticeFormPage {
 
     public PracticeFormPage setDateOfBirth(String day, String month, String year) {
         dateOfBirthInput.click();
-        CalendarComponent.setDate(day, month, year);
+        calendar.setDate(day, month, year);
 
         return this;
     }
@@ -155,41 +155,6 @@ public class PracticeFormPage {
     public PracticeFormPage setStateAndCity(String state, String city) {
         setState(state);
         setCity(city);
-
-        return this;
-    }
-
-    public PracticeFormPage checkModal(String text) {
-        modalWindow.shouldBe(visible)
-                .shouldHave(text(text));
-
-        return this;
-    }
-
-
-    public PracticeFormPage checkModalNotVisible() {
-        modalWindow.shouldNotBe(visible);
-
-        return this;
-    }
-
-    public PracticeFormPage checkTableResponsiveText(String key, String value) {
-        tableResponsive.$(byText(key)).parent().shouldHave(text(value));
-
-        return this;
-    }
-
-    public PracticeFormPage checkTableResponsiveEmptyValue(String key) {
-        tableResponsive.$(byText(key))
-                .parent()
-                .$("td", 1)
-                .shouldHave(exactText(""));
-
-        return this;
-    }
-
-    public PracticeFormPage checkBacklight(SelenideElement element, String property, String value) {
-        element.shouldHave(cssValue(property, value));
 
         return this;
     }
