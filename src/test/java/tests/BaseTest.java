@@ -6,13 +6,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import pages.MainPage;
-import pages.elementsPages.PracticeFormPage;
-import pages.elementsPages.TextBoxPage;
 
 public class BaseTest {
     MainPage mainPage = new MainPage();
-    PracticeFormPage registrationPage = new PracticeFormPage();
-    TextBoxPage textBoxPage = new TextBoxPage();
 
     @BeforeAll
     static void setupSelenideConfig() {
