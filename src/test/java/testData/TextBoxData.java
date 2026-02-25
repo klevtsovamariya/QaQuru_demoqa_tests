@@ -1,8 +1,17 @@
 package testData;
 
+import net.datafaker.Faker;
+
+import java.util.Locale;
+
+import static utils.RandomUtils.getRandomEmail;
+
 public class TextBoxData {
-    public static String userEmail = "capitanJack@gmail.com";
-    public static String userName = "Alex Black";
-    public static String permanentAddress = "address_2";
-    public static String currentAddress = "address_1";
+    static Faker faker = new Faker();
+    static Faker fakerRu = new Faker(new Locale("ru"));
+
+    public static String userEmail = getRandomEmail();
+    public static String userName = faker.name().fullName();
+    public static String permanentAddress = fakerRu.address().fullAddress();
+    public static String currentAddress = fakerRu.address().streetAddress();
 }

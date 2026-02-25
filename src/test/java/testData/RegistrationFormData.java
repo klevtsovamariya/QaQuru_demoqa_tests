@@ -1,26 +1,35 @@
 package testData;
 
+import net.datafaker.Faker;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
+import static utils.RandomUtils.*;
+
 public class RegistrationFormData {
-    public static String firstName = "Джек";
-    public static String lastName = "Воробей";
-    public static String userEmail = "capitanJack@gmail.com";
-    public static String sex1 = "Male";
-    public static String sex2 = "Female";
-    public static String sex3 = "Other";
-    public static String userNumber = "8900562321";
-    public static String year = "2000";
-    public static String month = "May";
-    public static String day = "10";
-    public static String currentAddress = "www_leningrad";
-    public static String hobbies1 = "Sports";
-    public static String hobbies2 = "Reading";
-    public static String hobbies3 = "Music";
-    public static String subject = "English";
-    public static String state = "NCR";
-    public static String city = "Delhi";
-    public static String dateOfBirth = "10 May,2000";
-    public static String picture = "1.png";
-    public static String title = "Thanks for submitting the form";
-    public static String redBorder = "rgb(220, 53, 69)";
-    public static String greenBorder = "rgb(25, 135, 84)";
+    static Faker faker = new Faker();
+    static Faker fakerRu = new Faker(new Locale("ru"));
+
+    public String firstName = faker.name().firstName();
+    public String lastName = faker.name().lastName();
+    public String userEmail = getRandomEmail();
+    public String sex = getRandomGender();
+    public String userNumber = getRandomPhone();
+    ;
+    public LocalDate dateOfBirth = faker.timeAndDate().birthday(18, 99);
+    public String year = String.valueOf(dateOfBirth.getYear());
+    public String month = dateOfBirth.format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH));
+    public String day = dateOfBirth.format(DateTimeFormatter.ofPattern("dd"));
+    public String dateOfBirthText = day + " " + month + "," + year;
+    public String currentAddress = fakerRu.address().fullAddress();
+    public String hobbies = getRandomHobbies();
+    public String subject = getRandomSubject();
+    public String state = getRandomState();
+    public String city = getRandomCityForState(state);
+    public String picture = "1.png";
+    public String title = "Thanks for submitting the form";
+    public String redBorder = "rgb(220, 53, 69)";
+    public String greenBorder = "rgb(25, 135, 84)";
 }

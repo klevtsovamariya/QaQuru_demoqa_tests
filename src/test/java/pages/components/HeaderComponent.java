@@ -21,7 +21,7 @@ public class HeaderComponent {
     public final SelenideElement stateAndCityLabel = $("#stateCity-label");
     public final SelenideElement mainTitle = $(".practice-form-wrapper h1");
     public final SelenideElement subtitle = $(".practice-form-wrapper h5");
-    public final SelenideElement modalTitle = $(".modal-title h4");
+    public final SelenideElement modalTitle = $("#example-modal-sizes-title-lg");
 
     public HeaderComponent verifyMainTitle(String text) {
         mainTitle.shouldHave(text(text));
