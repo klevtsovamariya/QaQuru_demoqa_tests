@@ -1,80 +1,41 @@
 package utils;
 
-import java.security.SecureRandom;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static java.lang.String.format;
+import net.datafaker.Faker;
 
 public class RandomUtils {
+    Faker faker = new Faker();
 
-    public static String getRandomString(int length) {
-        String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        StringBuilder result = new StringBuilder();
-        SecureRandom rnd = new SecureRandom();
-
-        for (int i = 0; i < length; i++)
-            result.append(LETTERS.charAt(rnd.nextInt(LETTERS.length())));
-
-        return result.toString();
-    }
-
-    public static String getRandomEmail() {
-        return format("%s@%s.com", getRandomString(8), getRandomString(5));
-    }
-
-    public static int getRandomInt(int min, int max) {
-
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
-    }
-
-    public static String getRandomPhone() {
-        String phoneTemplate = "8%s%s%s";
-
-        return format(phoneTemplate,
-                getRandomInt(100, 999),
-                getRandomInt(100, 999),
-                getRandomInt(100, 999)
-        );
-    }
-
-    public static String getRandomGender() {
+    public String getRandomGender() {
         String[] genders = {"Male", "Female", "Other"};
 
-        return getRandomItemFromStringArray(genders);
+        return faker.options().option(genders);
     }
 
-    public static String getRandomHobbies() {
+    public String getRandomHobbies() {
         String[] hobbies = {"Sports", "Reading", "Music"};
 
-        return getRandomItemFromStringArray(hobbies);
+        return faker.options().option(hobbies);
     }
 
-    public static String getRandomSubject() {
+    public String getRandomSubject() {
         String[] subject = {"English", "Social Studies", "Chemistry", "Maths", "Economics", "Arts"};
 
-        return getRandomItemFromStringArray(subject);
+        return faker.options().option(subject);
     }
 
-    public static String getRandomState() {
+    public String getRandomState() {
         String[] state = {"NCR", "Uttar Pradesh", "Haryana", "Rajasthan"};
 
-        return getRandomItemFromStringArray(state);
+        return faker.options().option(state);
     }
 
-    public static String getRandomCityForState(String state) {
+    public String getRandomCityForState(String state) {
         return switch (state) {
-            case "NCR" -> getRandomItemFromStringArray(new String[]{"Delhi", "Gurgaon", "Noida"});
-            case "Uttar Pradesh" -> getRandomItemFromStringArray(new String[]{"Agra", "Lucknow", "Merrut"});
-            case "Haryana" -> getRandomItemFromStringArray(new String[]{"Karnal", "Panipat"});
-            case "Rajasthan" -> getRandomItemFromStringArray(new String[]{"Jaipur", "Jaiselmer"});
+            case "NCR" -> faker.options().option(new String[]{"Delhi", "Gurgaon", "Noida"});
+            case "Uttar Pradesh" -> faker.options().option(new String[]{"Agra", "Lucknow", "Merrut"});
+            case "Haryana" -> faker.options().option(new String[]{"Karnal", "Panipat"});
+            case "Rajasthan" -> faker.options().option(new String[]{"Jaipur", "Jaiselmer"});
             default -> throw new IllegalStateException("Unexpected value: " + state);
         };
-    }
-
-    public static String getRandomItemFromStringArray(String[] stringArray) {
-        int arrayLength = stringArray.length;
-        int randomIndex = getRandomInt(0, arrayLength - 1);
-
-        return stringArray[randomIndex];
     }
 }

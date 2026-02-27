@@ -1,34 +1,34 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
-
-import static testData.TextBoxData.*;
+import testData.TextBoxData;
 
 public class TextBoxTests extends BaseTest {
+    private final TextBoxData testData = new TextBoxData();
 
     @Test
     void successfulFillFormTest() {
         mainPage.openElementsPage()
                 .openTextBoxPage()
-                .fillEmailForm(userEmail)
-                .fillNameForm(userName)
-                .fillcurrentAddressForm(currentAddress)
-                .fillpermanentAddressForm(permanentAddress)
+                .fillEmailForm(testData.userEmail)
+                .fillNameForm(testData.userName)
+                .fillcurrentAddressForm(testData.currentAddress)
+                .fillpermanentAddressForm(testData.permanentAddress)
                 .clickSubmit()
-                .checkOutputNameText(userName)
-                .checkOutputEmailText(userEmail)
-                .checkOutputCurrentAddressText(currentAddress)
-                .checkOutputPermananetAddressText(permanentAddress);
+                .checkOutputNameText(testData.userName)
+                .checkOutputEmailText(testData.userEmail)
+                .checkOutputCurrentAddressText(testData.currentAddress)
+                .checkOutputPermananetAddressText(testData.permanentAddress);
     }
 
     @Test
     void successfulFillFormWithoutAddressTest() {
         mainPage.openElementsPage()
                 .openTextBoxPage()
-                .fillEmailForm(userEmail)
-                .fillNameForm(userName)
+                .fillEmailForm(testData.userEmail)
+                .fillNameForm(testData.userName)
                 .clickSubmit()
-                .checkOutputNameText(userName)
-                .checkOutputEmailText(userEmail);
+                .checkOutputNameText(testData.userName)
+                .checkOutputEmailText(testData.userEmail);
     }
 }
