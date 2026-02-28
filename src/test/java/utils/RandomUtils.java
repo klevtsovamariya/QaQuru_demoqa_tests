@@ -31,10 +31,10 @@ public class RandomUtils {
 
     public String getRandomCityForState(String state) {
         return switch (state) {
-            case "NCR" -> faker.options().option(new String[]{"Delhi", "Gurgaon", "Noida"});
-            case "Uttar Pradesh" -> faker.options().option(new String[]{"Agra", "Lucknow", "Merrut"});
-            case "Haryana" -> faker.options().option(new String[]{"Karnal", "Panipat"});
-            case "Rajasthan" -> faker.options().option(new String[]{"Jaipur", "Jaiselmer"});
+            case "NCR" -> faker.options().option("Delhi", "Gurgaon", "Noida");
+            case "Uttar Pradesh" -> faker.options().option("Agra", "Lucknow", "Merrut");
+            case "Haryana" -> faker.options().option("Karnal", "Panipat");
+            case "Rajasthan" -> faker.options().option("Jaipur", "Jaiselmer");
             default -> throw new IllegalStateException("Unexpected value: " + state);
         };
     }
