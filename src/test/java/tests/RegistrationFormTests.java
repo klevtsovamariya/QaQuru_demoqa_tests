@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.components.BacklightComponent;
 import pages.components.HeaderComponent;
@@ -155,17 +156,19 @@ public class RegistrationFormTests extends BaseTest {
                 .checkTableResponsiveEmptyValue("State and City");
     }
 
-    @ParameterizedTest(name = "Регистрация с заполнением обязательных полей с hobbies {0}")
-    @ValueSource(strings = {
-            "Sports", "Reading", "Music"
+    @ParameterizedTest(name = "Регистрация с заполнением обязательных полей с hobbies {0} и gender {1}")
+    @CsvSource(value = {
+            "Sports, Male",
+            "Reading, Female",
+            "Music, Other"
     })
     @Tag("SMOKE")
-    void onlyRequiredFieldsWithHobbies(String hobbies) {
+    void onlyRequiredFieldsWithHobbies(String hobbies, String gender) {
         form.openPage()
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
                 .setEmail(testData.userEmail)
-                .selectGender("Female")
+                .selectGender(gender)
                 .setUserNumber(testData.userNumber)
                 .setDateOfBirth(testData.day, testData.month, testData.year)
                 .setHobbies(hobbies)
@@ -175,7 +178,7 @@ public class RegistrationFormTests extends BaseTest {
         header.verifyModalTitle(testData.title);
         resultsTable.checkTableResponsiveText("Student Name", testData.firstName + " " + testData.lastName)
                 .checkTableResponsiveText("Student Email", testData.userEmail)
-                .checkTableResponsiveText("Gender", "Female")
+                .checkTableResponsiveText("Gender", gender)
                 .checkTableResponsiveText("Mobile", testData.userNumber)
                 .checkTableResponsiveText("Date of Birth", testData.dateOfBirthText)
                 .checkTableResponsiveText("Hobbies", hobbies)
@@ -185,15 +188,17 @@ public class RegistrationFormTests extends BaseTest {
                 .checkTableResponsiveEmptyValue("State and City");
     }
 
-    @DisplayName("Проверка регистрации с некорректным номером телефона")
-    @Test
-    void wrongPhoneNumber() {
+    @ParameterizedTest(name ="Проверка регистрации с некорректным номером телефона")
+    @ValueSource(strings = {
+            "123", "абы", "123456789", "+-"
+    })
+    void wrongPhoneNumber( String number) {
         form.openPage()
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
                 .setEmail(testData.userEmail)
                 .selectGender("Female")
-                .setUserNumber("123")
+                .setUserNumber(number)
                 .setDateOfBirth(testData.day, testData.month, testData.year)
                 .setHobbies("Music")
                 .setCurrentAddress(testData.currentAddress)
