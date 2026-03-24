@@ -13,8 +13,10 @@
 | Java | 17+ | Язык программирования |
 | Gradle | 8+ | Сборка проекта |
 | JUnit 5 | 5.14.1 | Тестовый фреймворк |
-| Selenide | 7.14.0 | Управление браузером |
+| Selenide | 7.13.0 | Управление браузером |
+| Allure | 2.32.0 | Отчётность |
 | DataFaker | 2.5.4 | Генерация тестовых данных |
+| Selenoid | - | Удалённый запуск браузеров |
 
 ## Структура проекта
 
@@ -23,6 +25,7 @@ src/test/java/
 ├── pages/
 │   ├── MainPage.java                  # Главная страница demoqa.com
 │   ├── components/
+│   │   ├── Attach.java                # Аттачменты для Allure (скриншот, видео, логи)
 │   │   ├── BacklightComponent.java    # Проверка цвета подсветки полей
 │   │   ├── CalendarComponent.java     # Компонент выбора даты
 │   │   ├── HeaderComponent.java       # Заголовки страниц и модальных окон
@@ -63,17 +66,22 @@ src/test/java/
 
 ### Все тесты
 ```bash
-./gradlew test
+gradlew clean test
 ```
 
 ### Только SMOKE-тесты
 ```bash
-./gradlew test -Dgroups=SMOKE
+gradlew clean test -Dgroups=SMOKE
 ```
 
 ### Только REGRESS-тесты
 ```bash
-./gradlew test -Dgroups=REGRESS
+gradlew clean test -Dgroups=REGRESS
+```
+
+### Открыть Allure-отчёт
+```bash
+allure serve build/allure-results
 ```
 
 ## Паттерны и подходы
@@ -81,5 +89,8 @@ src/test/java/
 - **Page Object Model** — логика взаимодействия с UI вынесена в page-классы
 - **Fluent Interface** — методы страниц возвращают `this` для chain-вызовов
 - **Component Pattern** — переиспользуемые компоненты (Header, Calendar, ResultsTable)
-- **Параметризованные тесты** — `@ValueSource` и `@CsvFileSource` для покрытия нескольких сценариев
+- **@Step (AspectJ)** — аннотированные шаги в page object'ах отображаются в Allure-отчёте
+- **Lambda Steps** — шаги через `Allure.step()` в тестах для структурирования сценариев
+- **Параметризованные тесты** — `@ValueSource`, `@CsvSource`, `@CsvFileSource`
 - **Случайные тестовые данные** — DataFaker генерирует реалистичные данные при каждом запуске
+- **Selenoid** — удалённый запуск с записью видео и VNC
