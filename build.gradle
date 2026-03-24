@@ -27,7 +27,8 @@ dependencies {
             "org.junit.jupiter:junit-jupiter:5.10.0",
             "org.slf4j:slf4j-simple:2.0.16",
             'net.datafaker:datafaker:2.5.4',
-            'io.qameta.allure:allure-junit5:2.32.0'
+            'io.qameta.allure:allure-junit5:2.32.0',
+            "io.qameta.allure:allure-selenide:2.32.0",
     )
 }
 

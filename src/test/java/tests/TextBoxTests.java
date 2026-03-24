@@ -1,8 +1,10 @@
 package tests;
 
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.Test;
 import testData.TextBoxData;
 
+@Story("Text box")
 public class TextBoxTests extends BaseTest {
     private final TextBoxData testData = new TextBoxData();
 

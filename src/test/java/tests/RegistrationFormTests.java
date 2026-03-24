@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import testData.RegistrationFormData;
 
 import static com.codeborne.selenide.Condition.text;
 
+@Story("Registration form")
 public class RegistrationFormTests extends BaseTest {
 
     private final PracticeFormPage form = new PracticeFormPage();
@@ -188,11 +190,11 @@ public class RegistrationFormTests extends BaseTest {
                 .checkTableResponsiveEmptyValue("State and City");
     }
 
-    @ParameterizedTest(name ="Проверка регистрации с некорректным номером телефона")
+    @ParameterizedTest(name = "Проверка регистрации с некорректным номером телефона")
     @ValueSource(strings = {
             "123", "абы", "123456789", "+-"
     })
-    void wrongPhoneNumber( String number) {
+    void wrongPhoneNumber(String number) {
         form.openPage()
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
