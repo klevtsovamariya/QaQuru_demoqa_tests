@@ -18,9 +18,21 @@ public class BaseTest {
 
     @BeforeAll
     static void setupSelenideConfig() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
+        String browser = System.getProperty("browser", "chrome");
+        String browserSize = System.getProperty("browserSize", "1920x1080");
+        String browserVersion = System.getProperty("browserVersion", "127");
+        boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        String baseUrl = System.getProperty("baseUrl");
+        String loginSelenoid =  System.getProperty("loginSelenoid");
+        String passwordSelenoid =  System.getProperty("passwordSelenoid");
+        String urlSelenoid = System.getProperty("urlSelenoid");
+
+        Configuration.browser = browser;
+        Configuration.browserVersion = browserVersion;
+        Configuration.browserSize = browserSize;
+        Configuration.baseUrl = baseUrl;
         Configuration.pageLoadStrategy = "eager";
+        Configuration.headless = isHeadless;
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -28,8 +40,7 @@ public class BaseTest {
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
-
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.remote = "https://" + loginSelenoid + ":" + passwordSelenoid + "@" + urlSelenoid;
     }
 
     @BeforeEach
