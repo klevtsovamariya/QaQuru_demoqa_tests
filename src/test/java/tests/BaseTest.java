@@ -18,21 +18,16 @@ public class BaseTest {
 
     @BeforeAll
     static void setupSelenideConfig() {
-        String browser = System.getProperty("browser", "chrome");
-        String browserSize = System.getProperty("browserSize", "1920x1080");
-        String browserVersion = System.getProperty("browserVersion", "127");
-        boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "false"));
-        String baseUrl = System.getProperty("baseUrl");
-        String loginSelenoid =  System.getProperty("loginSelenoid");
-        String passwordSelenoid =  System.getProperty("passwordSelenoid");
-        String urlSelenoid = System.getProperty("urlSelenoid");
-
-        Configuration.browser = browser;
-        Configuration.browserVersion = browserVersion;
-        Configuration.browserSize = browserSize;
-        Configuration.baseUrl = baseUrl;
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("browserVersion", "127.0");
+        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
+        Configuration.baseUrl = System.getProperty("baseUrl");
         Configuration.pageLoadStrategy = "eager";
-        Configuration.headless = isHeadless;
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+
+        String loginSelenoid = System.getProperty("loginSelenoid");
+        String passwordSelenoid = System.getProperty("passwordSelenoid");
+        String urlSelenoid = System.getProperty("urlSelenoid");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
